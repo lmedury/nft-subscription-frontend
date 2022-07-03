@@ -13,8 +13,11 @@ import LoadingButton from '../Components/Buttons/LoadingButton';
 export default function Create(props) {
 
     const [avatar, setAvatar] = React.useState();
+    const [banner, setBanner] = React.useState();
     const hiddenFileInput = React.useRef(null);
+    const hiddenBannerFileInput = React.useRef(null);
     const [file, setFile] = React.useState('');
+    const [bannerFile, setBannerFile] = React.useState('');
     const [tokenName, setTokenName] = React.useState('');
     const [assetName, setAssetName] = React.useState('');
     const [price, setPrice] = React.useState(0);
@@ -22,14 +25,20 @@ export default function Create(props) {
     const [description, setDescription] = React.useState('');
     const [loading, setLoading] = React.useState(false);
     const navigate = useNavigate();
-    const selectAvatar = (e) => {
+    const selectAvatar = (e, type) => {
         try{
             e.preventDefault();
             let reader = new FileReader();
             let file = e.target.files[0];
             reader.onloadend = () => {
-                setFile(file);
-                setAvatar(reader.result);
+                if(type === 'avatar') {
+                    setFile(file);
+                    setAvatar(reader.result);
+                } else if(type === 'banner') {
+                    setBannerFile(file);
+                    setBanner(reader.result);
+                }
+                
             };
             reader.readAsDataURL(file);
         } catch (err)  {
@@ -39,7 +48,7 @@ export default function Create(props) {
 
     async function deployContract() {
         setLoading(true);
-        const txn = await AlgoService.deployContractTransaction(WalletConnectClass.getConnectedWallet().address, tokenName, assetName, parseInt(price), parseInt(period), description, file);
+        const txn = await AlgoService.deployContractTransaction(WalletConnectClass.getConnectedWallet().address, tokenName, assetName, parseInt(price), parseInt(period), description, file, bannerFile);
         try{
             const status = await Transactions.signTransactions([txn]);
             if(status.success) {
@@ -57,19 +66,25 @@ export default function Create(props) {
 
     return(
         <Container>
-            <h1>Create a subscription membership</h1>
+            <h3>Create a subscription membership</h3>
             <Row >
                 <Col className="card-description" xs={12}>
-                    <Image className="text-center" roundedCircle style={{width:150, verticalAlign:'text-top'}} 
+                    <Image className="text-center" style={{width:'60%', height: '70%', verticalAlign:'text-top', borderRadius: 20}} 
+                        src={banner ? banner : require('../assets/img/banner.jpg').default} />                        
+                        <FontAwesomeIcon icon={faEdit} style={{cursor:'pointer'}} onClick={() => hiddenBannerFileInput.current.click()} /> <br />
+                    <Image className="text-center" style={{width:150, marginTop:'-5%', verticalAlign:'text-top', borderRadius: 20}} 
                         src={avatar ? avatar : require('../assets/img/UserPlaceholder.png').default} />                        
                         <FontAwesomeIcon icon={faEdit} style={{cursor:'pointer'}} onClick={() => hiddenFileInput.current.click()} />
-                    <p className='text-center'>Project / Company Logo</p>
                 </Col>
                 <input 
-                    accept=".png, .jpg, .gif, .webp"
+                    accept=".png, .jpg, .gif, .webp, .jpeg"
                     ref={hiddenFileInput} 
-                    onChange={(e) => selectAvatar(e)} type="file" style={{display:'none'}} />
-                <Col className="card-description" xs={12} md={{span: 6, offset:3}}>
+                    onChange={(e) => selectAvatar(e, 'avatar')} type="file" style={{display:'none'}} />
+                <input 
+                    accept=".png, .jpg, .gif, .webp, .jpeg"
+                    ref={hiddenBannerFileInput} 
+                    onChange={(e) => selectAvatar(e, 'banner')} type="file" style={{display:'none'}} />
+                <Col xs={12} md={{span: 6, offset:3}}>
                     <p className="text-left">Token Name: </p>
                     <FormControl
                         type="text"
@@ -94,7 +109,7 @@ export default function Create(props) {
                     />
                 </Col>
                 <Col className="card-description" xs={6} md={{span:3}}>
-                    <p className="text-left">Period (in years): </p>
+                    <p className="text-left">Period (in minutes): </p>
                     <FormControl
                         type="number"
                         className="form-input long-input"

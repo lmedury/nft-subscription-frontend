@@ -12053,7 +12053,7 @@ a {
 }
 
 .dark-theme .card-bg {
-  border: 1px solid grey;
+  border: 1px solid #C8C8C8;
   background-color: #282c34;
   padding: 10%;
 }
@@ -12065,7 +12065,7 @@ a {
 }
 
 .dark-theme .secondary-border {
-  border: 1px solid grey;
+  border: 1px solid #C8C8C8;
 }
 
 .dark-theme .no-border {
@@ -12155,7 +12155,7 @@ a {
 }
 
 .light-theme .card-bg {
-  border: 1px solid grey;
+  border: 1px solid #C8C8C8;
   background-color: #ffffff;
   padding: 10%;
 }
@@ -12167,7 +12167,7 @@ a {
 }
 
 .light-theme .secondary-border {
-  border: 1px solid grey;
+  border: 1px solid #C8C8C8;
 }
 
 .light-theme .no-border {
@@ -12274,7 +12274,7 @@ a {
 }
 
 .dark-card {
-  border: 1px solid grey;
+  border: 1px solid #C8C8C8;
   background-color: #282c34;
   padding: 10%;
 }
@@ -12437,5 +12437,10 @@ a {
   padding: 10px;
   border: 1px solid white !important;
   border: 1px solid orange !important;
+}
+
+.grey-bg {
+  background-color: #C8C8C8;
+  color: #000000;
 }
 /*# sourceMappingURL=styles.css.map */

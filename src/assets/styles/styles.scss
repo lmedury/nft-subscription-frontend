@@ -3,7 +3,7 @@ $text-dark-theme: #ffffff;
 $light-color: #ffffff;
 $text-light-theme: #000000;
 $primary-color: #eb9c1c;
-$grey-color: grey;
+$grey-color: #C8C8C8;
 $warning: #eb9c1c;
 
 @import '../../../node_modules/bootstrap/scss/bootstrap.scss';
@@ -402,5 +402,10 @@ a {
 .card-warning {
   @include card-class();
   border: 1px solid orange !important;
+}
+
+.grey-bg {
+  background-color: $grey-color;
+  color: $text-light-theme;
 }
 

@@ -11,6 +11,7 @@ import Subscribe from './Pages/Subscribe';
 import Create from './Pages/Create';
 import Success from './Pages/Success';
 import MySubscriptions from './Pages/MySubscriptions';
+import Revoke from './Pages/Revoke';
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
             <Route path="/create" element={<Create />} />
             <Route path="/success" element={<Success />} />
             <Route path="/my-subscriptions" element={<MySubscriptions />} />
+            <Route path="/revoke" element={<Revoke />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>
         </header>

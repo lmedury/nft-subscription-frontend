@@ -1,6 +1,6 @@
 import React from "react";
 
-import {Row, Col, Card, Button} from 'react-bootstrap';
+import {Row, Col, Card} from 'react-bootstrap';
 import { IPFS_URL } from "../../assets/js/constants";
 import Utility from "../../assets/js/Utility";
 
@@ -9,25 +9,22 @@ export default function MySubscriptionCard({subscription}) {
     console.log(subscription);
 
     return(
-        <Row className="title">
-            <Col xs={12} md={{span: 6, offset:3}}>
-                <Card className="card-bg" style={{paddingTop: 10, paddingBottom:10}}>
-                   <Row>
-                        <Col xs={12} md={3}>
-                            <img src={`${IPFS_URL}/${subscription.asset.assetInfo.properties.media_url.description}`} alt="logo" style={{width: 100}} />
-                            <p>{subscription.asset.assetInfo.title}</p>
-                        </Col>
-                        <Col xs={12} md={6}>
-                            <p>Project Owner: {Utility.sliceAccount(subscription.asset.clawback)}</p>
-                            <p className="text-left">{subscription.asset.assetInfo.properties.description.description}</p>
-                        </Col>
-                        <Col xs={12} md={3}>
-                            <Button disabled variant="warning">Renew</Button>
-                        </Col>
-                    </Row> 
-                </Card>
-            </Col>
-        </Row>
         
+        <Col xs={12} md="4">
+            <Card className="grey-bg" style={{paddingTop: 10, paddingBottom:10, borderRadius: 30, padding: 0, minHeight: 450}}>
+                <Row>
+                    <Col xs={12}>
+                        <img src={subscription.asset.assetInfo.properties.banner ? `${IPFS_URL}/${subscription.asset.assetInfo.properties.banner.description}` : require('../../assets/img/banner.jpg').default} alt="logo" style={{width: '100%', height: 200, borderTopLeftRadius: 30,  borderTopRightRadius: 30}} />
+                        <img src={subscription.asset.assetInfo.properties.media_url ? `${IPFS_URL}/${subscription.asset.assetInfo.properties.media_url.description}` : require('../../assets/img/banner.jpg').default} alt="logo" style={{width: '25%', height: 90, borderRadius:10, marginTop: '-10%'}} /> <br />
+                    </Col>
+                    <Col xs={12} className="card-description">
+                        <strong>{subscription.asset.assetInfo.title}</strong>
+                        <p className="title">Project Owner: {Utility.sliceAccount(subscription.asset.clawback)}</p>
+                        <p className="text-center">{subscription.asset.assetInfo.properties.description.description}</p>
+                    </Col>
+                </Row> 
+            </Card>
+        </Col>
+       
     )
 }

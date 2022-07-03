@@ -1,4 +1,4 @@
-export function FormatJson(title, description, mediaUrl) {
+export function FormatJson(title, description, mediaUrl, bannerUrl) {
     return {
         "title": title,
         "type": "object",
@@ -14,6 +14,10 @@ export function FormatJson(title, description, mediaUrl) {
             "media_url": {
                 "type": "string",
                 "description": mediaUrl
+            },
+            "banner": {
+                "type": "string",
+                "description": bannerUrl
             }
         }
     }

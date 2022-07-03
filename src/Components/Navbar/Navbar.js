@@ -4,6 +4,7 @@ import { Navbar, Container, Nav, Button, Form, FormControl, DropdownButton, Drop
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import logo from '../../assets/img/white-logo.png';
 
 export default function NavigationBar(props) {
 
@@ -42,7 +43,13 @@ export default function NavigationBar(props) {
         <Navbar className="dark-navbar" variant="dark" expand="lg">
             <Container>
                 <Navbar.Brand href="/#/">
-                    NFT Subscription
+                    <img
+                        alt=""
+                        src={logo}
+                        width="200"
+                        height="80"
+                        className="d-inline-block align-top"
+                        />{' '}
                     </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
@@ -59,6 +66,9 @@ export default function NavigationBar(props) {
                         </Nav.Link>
                         <Nav.Link className="nav-link-left" href="/#/my-subscriptions" >
                             My Subscriptions
+                        </Nav.Link>
+                        <Nav.Link className="nav-link-left" href="/#/revoke" >
+                            Earn
                         </Nav.Link>
                         
                     </Nav>

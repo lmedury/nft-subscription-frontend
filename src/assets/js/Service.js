@@ -34,9 +34,10 @@ const AlgoService = {
         return new Uint8Array(Buffer.from(compileResponse.result, "base64"));
     },
 
-    deployContractTransaction: async (address, tokenSymbol, tokenName, price, duration, description, image) => {
+    deployContractTransaction: async (address, tokenSymbol, tokenName, price, duration, description, image, bannerFile) => {
         const file = await ipfs.add(image);
-        const json = FormatJson(tokenName, description, file.path);
+        const banner = await ipfs.add(bannerFile);
+        const json = FormatJson(tokenName, description, file.path, banner.path);
         const hash = await ipfs.add(JSON.stringify(json));
         const assetUrl = hash.path;
         
@@ -108,27 +109,41 @@ const AlgoService = {
         return kvPairs['asset_id'];
     },
 
+    /*
+        33IA2RTOTZDD3KNDBOBUUGF43RJ4MJXDL6GZENBFHS2KO6HYN43ZKCBYDA
+        98238190
+        98241098
+    */
+
     getMySubscriptions : async (address) => {
+        console.log(address);
         const accountInfo = await indexer.lookupAccountByID(address).do();
-        const assets = accountInfo.account['assets'].map(asset => asset['asset-id']);
+        const assets = accountInfo.account['assets'].filter(asset => asset.amount > 0).map(asset => asset['asset-id']);
+        
         const assetCreators = [];
         for(let i in assets){
-            const info = await indexer.lookupAssetByID(assets[i]).do();
-            assetCreators.push(info.asset.params.manager);
+            try{
+                const info = await indexer.lookupAssetByID(assets[i]).do();
+                assetCreators.push(info.asset.params.manager);
+            }catch(err) {
+                
+            }
         }
         const apps = accountInfo.account['apps-local-state'];
         const appsOptedIn = apps.map(app => app.id);
         const escrowAddresses = appsOptedIn.map(app => algosdk.getApplicationAddress(app));
         const ownedAssets = [];
         const subscriptions = [];
+        
         for(let i in assetCreators) {
             if(escrowAddresses.includes(assetCreators[i])){
                 const details = {};
                 details.asset = assets[i];
-                details.app = appsOptedIn[i];
+                details.app = appsOptedIn[escrowAddresses.indexOf(assetCreators[i])];
                 ownedAssets.push(details);
             }
         }
+        
         for(let i in ownedAssets) {
             const details = {};
             const info = await indexer.lookupAssetByID(ownedAssets[i].asset).do();
@@ -137,11 +152,30 @@ const AlgoService = {
             let assetInfo = await fetch(`${IPFS_URL}/${params.url}`);
             assetInfo = await assetInfo.json();
             params.assetInfo = assetInfo
+            details.assetId = ownedAssets[i].asset;
             details.asset = params;
             subscriptions.push(details)
         }
         return subscriptions;
-    },    
+    },
+
+    prepareExpiryTransaction: async(sender, address, appId, assetId) => {
+        appId = parseInt(appId);
+        assetId = parseInt(assetId);
+        const accountInfo = await indexer.lookupAccountByID(address).do();
+        const apps = accountInfo.account['apps-local-state'];
+        const app = apps.filter(application => application.id === appId);
+        if(app.length > 0) {
+            const kvPairs = Utility.decodeKvPairs(app[0]['key-value']);
+            console.log(kvPairs);
+            if(kvPairs['expiry'] < new Date() && assetId === kvPairs['asset_id']){
+                const params = await client.getTransactionParams().do();
+                return {expired: true, txn: algosdk.makeApplicationNoOpTxn(sender, params, appId, [Utility.encodeBytes('destroy_nft')], [address], undefined, [assetId])};
+            } else {
+                return {expired: false}
+            }
+        }
+    }
 }
 
 export default AlgoService;

@@ -1,7 +1,6 @@
 import React from "react";
 
 import {Row, Col, Container, Card, Button, ButtonGroup} from 'react-bootstrap';
-import algoicon from '../assets/img/Algorand.png';
 import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IPFS_URL } from "../assets/js/constants";
@@ -11,6 +10,8 @@ import LoadingButton from "../Components/Buttons/LoadingButton";
 import { useParams } from "react-router-dom";
 import WalletConnectClass from "../assets/js/WalletConnect";
 import { useNavigate } from "react-router-dom";
+import Utility from "../assets/js/Utility";
+import algosdk from "algosdk";
 
 export default function Subscribe(props) {
 
@@ -26,6 +27,7 @@ export default function Subscribe(props) {
     React.useEffect(() => {
         async function getInfo(){
             const info = await AlgoService.getGlobalState(params.id);
+            console.log(info);
             setAppInfo(info);
             setPrice(info.state.subscription_price);
             setPriceDuration(info.state.subscription_price);
@@ -82,57 +84,65 @@ export default function Subscribe(props) {
                 }
             }
             setLoading(false);
-        }
-        
-        
+        } 
     }
 
     return(
         <Container>
             {Object.keys(appInfo).length > 0 && Object.keys(metadata).length > 0 ? 
             <div className="section">
-                
-                <Card className="card-bg" style={{paddingTop:10, paddingBottom:20}}>
-                    <h1 className="title text-center">NFT Subscription</h1>
-                    <Row className="text-center">
-                        <Col xs={12}>
-                            <img src={`${IPFS_URL}/${metadata.properties.media_url.description}`} style={{width: 120}} alt="Logo" />
+                <Card className="card-bg" style={{paddingTop:10, paddingBottom:100, borderRadius: 20}}>
+                    <Row>
+                        <Col xs={12} md={6}>
+                            <img src={`${IPFS_URL}/${metadata.properties.media_url.description}`} style={{width: 100, borderRadius: 30}} alt="Logo" />
+                            <p className="card-description" style={{marginTop:'5%', fontSize:20}}>{appInfo.state.unit_name}</p>
                             <h3>{appInfo.state.asset_name}</h3>
+                            <p className="card-description" style={{marginTop:'5%', fontSize:20}}>{metadata.properties.description.description}</p>
+                        </Col>
+                        <Col xs={12} md={6}>
+                            <img src={`${IPFS_URL}/${metadata.properties.banner.description}`} style={{width: '100%', borderRadius: 20}} alt="Logo" />
                         </Col>
                     </Row>
-                    <Row>
-                        <Col md="12">
-                        <h3 className="title">Description</h3>
-                        <p className="description">
-                            {metadata.properties.description.description}
-                        </p>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col xs="12" md="4">
-                            
-                            <h3 className="title">Calculate Fee:</h3>
-                            
-                            <ButtonGroup aria-label="Basic example">
-                                <Button variant="secondary" onClick={() => updateYears('decrement')}><FontAwesomeIcon icon={faMinusCircle} size="2x" /></Button>
-                                <Button variant="secondary" disabled style={{fontWeight:'bold'}}>{years} Minute(s)</Button>
-                                <Button variant="secondary" onClick={() => updateYears('increment')}><FontAwesomeIcon icon={faPlusCircle} size="2x" /></Button>
-                            </ButtonGroup>
-                            
-                        </Col>
-                        
-                    </Row>
-                    
-                    <div className="text-center">
-                        <h3 className="title">Total = {(price/1000000)} <img alt="ALGO" src={algoicon} style={{ width: '1.5rem', display:'inline'}} /></h3>
-                        <Button variant="primary" disabled={loading ? true : false} style={{marginRight:'2%'}} onClick={() => props.changePage(1)}>Go Back</Button>
-                        <LoadingButton
-                            loading={loading}
-                            onClick={() => subscribe()}
-                            activeText="Confirm Subscription"
-                        />
-                    </div>
                 </Card>
+                <Row>
+                    <Col xs={{offset: 2, span: 8}} style={{marginTop:'-5%'}}>
+                        <Card className="card-bg" style={{borderRadius: 20, padding: 10, width: '100%'}}>
+                            <div className="section">
+                                <strong>Information:</strong>
+                                <ul className="card-description">
+                                    <li className="card-description">
+                                        Creator: {Utility.sliceAccount(appInfo.state.receiver_address)}
+                                    </li>
+                                    <li className="card-description">
+                                        Token Symbol: {appInfo.state.unit_name}
+                                    </li>
+                                    <li className="card-description">
+                                        Asset Name: {appInfo.state.asset_name}
+                                    </li>
+                                    <li className="card-description">
+                                        Description: {metadata.properties.description.description}
+                                    </li>
+                                    <li className="card-description">
+                                        Price: {algosdk.microalgosToAlgos(appInfo.state.subscription_price)} ALGO / {appInfo.state.duration} minute(s)
+                                    </li>
+                                </ul>
+                                <br />
+                                <ButtonGroup aria-label="Basic example">
+                                    <Button variant="secondary" onClick={() => updateYears('decrement')}><FontAwesomeIcon icon={faMinusCircle} size="2x" /></Button>
+                                    <Button variant="secondary" disabled style={{fontWeight:'bold'}}>{years} period(s)</Button>
+                                    <Button variant="secondary" onClick={() => updateYears('increment')}><FontAwesomeIcon icon={faPlusCircle} size="2x" /></Button>
+                                    <LoadingButton
+                                        style={{marginLeft: '2%', width: '100%', }}
+                                        loading={loading}
+                                        onClick={() => subscribe()}
+                                        activeText="Confirm Subscription"
+                                    />
+                                </ButtonGroup>
+                            </div>
+                        </Card>
+                    </Col>
+                </Row>
+                
             </div> : <></> }
         </Container>
     )
