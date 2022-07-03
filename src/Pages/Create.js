@@ -1,5 +1,6 @@
 import React from 'react';
-import {Row, Col, Container, FormControl, Button} from 'react-bootstrap';
+import {Row, Col, Container, FormControl} from 'react-bootstrap';
+
 import {Image} from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit} from "@fortawesome/free-solid-svg-icons";

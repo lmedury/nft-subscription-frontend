@@ -1,8 +1,8 @@
 import React from "react";
-import { Navbar, Container, Nav, NavDropdown, Button, Form, FormControl, DropdownButton, Dropdown, ButtonGroup, Col, Row} from "react-bootstrap";
-import logo from '../../assets/img/ans-logo.png';
+import { Navbar, Container, Nav, Button, Form, FormControl, DropdownButton, Dropdown, ButtonGroup, Col, Row} from "react-bootstrap";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faList, faPlus, faChartBar, faUsers, faRoad, faDownload, faInfoCircle, faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 
 export default function NavigationBar(props) {
@@ -56,6 +56,9 @@ export default function NavigationBar(props) {
                         </Nav.Link>
                         <Nav.Link className="nav-link-left" href="/#/subscribe" >
                             Subscribe
+                        </Nav.Link>
+                        <Nav.Link className="nav-link-left" href="/#/my-subscriptions" >
+                            My Subscriptions
                         </Nav.Link>
                         
                     </Nav>

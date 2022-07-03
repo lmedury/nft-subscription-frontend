@@ -1,16 +1,13 @@
 import React from "react";
 
-import {Row, Col, Container, Card, Button, Form, ButtonGroup} from 'react-bootstrap';
+import {Row, Col, Container, Card, Button, ButtonGroup} from 'react-bootstrap';
 import algoicon from '../assets/img/Algorand.png';
 import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import constants, { IPFS_URL } from "../assets/js/constants";
+import { IPFS_URL } from "../assets/js/constants";
 import AlgoService from "../assets/js/Service";
 import Transactions from "../assets/js/Transactions";
-import ToastTopRight from "../Components/Toasts/ToastTopRight";
-import { isValidAddress } from "algosdk";
 import LoadingButton from "../Components/Buttons/LoadingButton";
-import Recaptcha from 'react-google-recaptcha';
 import { useParams } from "react-router-dom";
 import WalletConnectClass from "../assets/js/WalletConnect";
 import { useNavigate } from "react-router-dom";
@@ -22,9 +19,6 @@ export default function Subscribe(props) {
     const [priceDuration, setPriceDuration] = React.useState(0);
     const [years, setYears] = React.useState(1);
     const [loading, setLoading] = React.useState(false);
-    const [error, setError] = React.useState(false);
-    const [errorMessage, setErrorMessage] = React.useState('');
-    const [captchaVerified, setCaptchaVerified] = React.useState(false);
     const params = useParams();
     const [appInfo, setAppInfo] = React.useState({});
     const [metadata, setMetadata] = React.useState({});
@@ -59,27 +53,6 @@ export default function Subscribe(props) {
         setPrice(numYears*priceDuration);
     }
 
-    const confirmRegistration = async () => {
-        if(!captchaVerified){
-            setErrorMessage('Please complete the recaptcha');
-            window.scrollTo(0, 0);
-            setError(true);
-            return;
-        }
-        
-        setLoading(true);
-        const address = localStorage.getItem('address');
-        if(!isValidAddress(address)){
-            setLoading(false);
-            setErrorMessage('Please connect your Algorand Wallet');
-            window.scrollTo(0, 0);
-            setError(true);
-            return;
-        }
-        
-        
-    }
-    
     const subscribe = async () => {
         
         setLoading(true);
@@ -118,12 +91,7 @@ export default function Subscribe(props) {
         <Container>
             {Object.keys(appInfo).length > 0 && Object.keys(metadata).length > 0 ? 
             <div className="section">
-                <ToastTopRight 
-                    showToast={error}
-                    closeToast={() => setError(!error)}
-                    toastMessage={errorMessage}
-                    bg="danger"
-                    />
+                
                 <Card className="card-bg" style={{paddingTop:10, paddingBottom:20}}>
                     <h1 className="title text-center">NFT Subscription</h1>
                     <Row className="text-center">
@@ -154,14 +122,7 @@ export default function Subscribe(props) {
                         </Col>
                         
                     </Row>
-                    <Recaptcha 
-                        sitekey={process.env.REACT_APP_RECAPTCHA_SITE_KEY} 
-                        render="explicit"
-                        style={{display: 'none'}}
-                        onChange={() => {
-                            setCaptchaVerified(true)
-                        }}
-                    />
+                    
                     <div className="text-center">
                         <h3 className="title">Total = {(price/1000000)} <img alt="ALGO" src={algoicon} style={{ width: '1.5rem', display:'inline'}} /></h3>
                         <Button variant="primary" disabled={loading ? true : false} style={{marginRight:'2%'}} onClick={() => props.changePage(1)}>Go Back</Button>

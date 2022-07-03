@@ -5,13 +5,11 @@ import Config from "./Config";
 import Utility from "./Utility";
 import { APPROVAL_PROGRAM } from "../teal/nft_subscription_approval";
 import { CLEAR_PROGRAM } from "../teal/nft_subscription_clear_state";
-import { APPS } from "./constants";
+import { APPS, IPFS_URL } from "./constants";
 
 const config = new Config();
 const client = config.getClient();
 const indexer = config.getIndexer();
-const APP_ID = config.APP_ID;
-
 
 const ipfsAPI = require('ipfs-http-client');
 const ipfs = ipfsAPI.create('https://ipfs.infura.io:5001');
@@ -108,8 +106,42 @@ const AlgoService = {
         const currentApp = apps.filter(app => app.id === appId)[0];
         const kvPairs = Utility.decodeKvPairs(currentApp['key-value']);
         return kvPairs['asset_id'];
-    }
-    
+    },
+
+    getMySubscriptions : async (address) => {
+        const accountInfo = await indexer.lookupAccountByID(address).do();
+        const assets = accountInfo.account['assets'].map(asset => asset['asset-id']);
+        const assetCreators = [];
+        for(let i in assets){
+            const info = await indexer.lookupAssetByID(assets[i]).do();
+            assetCreators.push(info.asset.params.manager);
+        }
+        const apps = accountInfo.account['apps-local-state'];
+        const appsOptedIn = apps.map(app => app.id);
+        const escrowAddresses = appsOptedIn.map(app => algosdk.getApplicationAddress(app));
+        const ownedAssets = [];
+        const subscriptions = [];
+        for(let i in assetCreators) {
+            if(escrowAddresses.includes(assetCreators[i])){
+                const details = {};
+                details.asset = assets[i];
+                details.app = appsOptedIn[i];
+                ownedAssets.push(details);
+            }
+        }
+        for(let i in ownedAssets) {
+            const details = {};
+            const info = await indexer.lookupAssetByID(ownedAssets[i].asset).do();
+            const params = info.asset.params;
+            details.app = ownedAssets[i].app;
+            let assetInfo = await fetch(`${IPFS_URL}/${params.url}`);
+            assetInfo = await assetInfo.json();
+            params.assetInfo = assetInfo
+            details.asset = params;
+            subscriptions.push(details)
+        }
+        return subscriptions;
+    },    
 }
 
 export default AlgoService;
