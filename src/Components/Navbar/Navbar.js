@@ -42,13 +42,7 @@ export default function NavigationBar(props) {
         <Navbar className="dark-navbar" variant="dark" expand="lg">
             <Container>
                 <Navbar.Brand href="/#/">
-                    <img
-                        alt=""
-                        src={logo}
-                        width="200"
-                        height="100"
-                        className="d-inline-block align-top"
-                        />{' '}
+                    NFT Subscription
                     </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
@@ -57,52 +51,13 @@ export default function NavigationBar(props) {
                         style={{ maxHeight: '200px' }}
                         
                     >
-                        <Nav.Link className="nav-link-left" href="/#/search" >
-                            Search
+                        <Nav.Link className="nav-link-left" href="/#/create" >
+                            Create Subscription
                         </Nav.Link>
-                        <NavDropdown className="nav-link-left" title="App" id="navbarScrollingDropdown">
-                        <NavDropdown.Item className="nav-link-left" href="/#/register">
-                            <FontAwesomeIcon icon={faPlus} className="navbar-icon" />
-                            Register</NavDropdown.Item>
-                        
-                        <NavDropdown.Item className="nav-link-left" href="/#/names">
-                            <FontAwesomeIcon icon={faList} className="navbar-icon" />
-                            My Names</NavDropdown.Item>
-                        
-                        <NavDropdown.Item className="nav-link-left" href="/#/accept">
-                            <FontAwesomeIcon icon={faDownload} className="navbar-icon" />
-                            Accept Domain
-                        </NavDropdown.Item>
-                        
-                        </NavDropdown>
-
-                        <NavDropdown className="nav-link-left" title="About" id="navbarScrollingDropdown">
-                        <NavDropdown.Item className="nav-link-left" href="/#/about">
-                            <FontAwesomeIcon icon={faInfoCircle} className="navbar-icon" />
-                            About ANS</NavDropdown.Item>
-                        <NavDropdown.Item className="nav-link-left" href="/#/team">
-                            <FontAwesomeIcon icon={faUsers} className="navbar-icon" />
-                            Team</NavDropdown.Item>
-                        {false ?
-                        <NavDropdown.Item className="nav-link-left" href="/#/roadmap">
-                            <FontAwesomeIcon icon={faRoad} className="navbar-icon" />
-                            Roadmap
-                        </NavDropdown.Item> : <></> }
-                        <NavDropdown.Item className="nav-link-left" href="/#/integrations">
-                            <FontAwesomeIcon icon={faDownload} className="navbar-icon" />
-                            Integrations
-                        </NavDropdown.Item>
-                        <NavDropdown.Item className="nav-link-left" href="/#/insights">
-                            <FontAwesomeIcon icon={faChartBar} className="navbar-icon" />
-                            Insights
-                        </NavDropdown.Item>
-                        </NavDropdown>
-
-                        <Nav.Link className="nav-link-left" href="https://docs.algonameservice.com" >
-                        Docs
+                        <Nav.Link className="nav-link-left" href="/#/subscribe" >
+                            Subscribe
                         </Nav.Link>
-                        <Nav.Link className="nav-link-left" href="/#/payment">Payment</Nav.Link>
-                        <Nav.Link className="nav-link-left" href="/#/marketplace">Marketplace</Nav.Link>
+                        
                     </Nav>
 
                     {false ? 

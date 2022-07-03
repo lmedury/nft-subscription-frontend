@@ -1,3 +1,4 @@
+import algosdk from "algosdk";
 
 const Utility = {
     sliceAccount(account) {
@@ -50,7 +51,17 @@ const Utility = {
         }
 
         return {valid: true};
+    },
+
+    encodeBytes(value) {
+        return new Uint8Array(Buffer.from(value, 'base64'));
+    },
+
+    encodeInt(value) {
+        return algosdk.encodeUint64(value)
     }
+
+
 }
 
 export default Utility;

@@ -80,13 +80,9 @@ export default function Subscribe(props) {
                     <h1 className="title text-center">NFT Subscription</h1>
                     <Row className="text-center">
                         <Col xs={12}>
-                            <img src={algoicon} style={{width: 120}} />
+                            <img src={algoicon} style={{width: 120}} alt="Logo" />
                             <h3>Project 1</h3>
                         </Col>
-                    </Row>
-                    <Row>
-                        <h5 className="title">Fee: 5 <img src={algoicon} style={{width:20}} alt="ALGO" /> / Year</h5>
-                        
                     </Row>
                     <Row>
                         <Col md="12">
@@ -109,20 +105,6 @@ export default function Subscribe(props) {
                                 <Button variant="secondary" onClick={() => updateYears('increment')}><FontAwesomeIcon icon={faPlusCircle} size="2x" /></Button>
                             </ButtonGroup>
                             
-                        </Col>
-                        
-                    </Row>
-                    <Row style={{marginTop:'3%', marginBottom:'3%'}}>
-                        <Col xs="12">
-                            <Form.Check
-                                
-                                type='checkbox'>
-                                <Form.Check.Input type='checkbox' onChange={() => setCheckbox(!checkbox)} />
-                                <Form.Check.Label>
-                                    I have read, and agree to the <a href="/#/terms-and-conditions" target="_blank" rel="noreferrer">terms and conditions </a> of this service.
-                                </Form.Check.Label>
-                            </Form.Check>
-
                         </Col>
                         
                     </Row>

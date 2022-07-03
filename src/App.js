@@ -10,6 +10,7 @@ import WalletConnectClass from './assets/js/WalletConnect';
 import View from './Pages/View'
 import Subscribe from './Pages/Subscribe';
 import Create from './Pages/Create';
+import Success from './Pages/Success';
 
 function App() {
 
@@ -47,10 +48,10 @@ function App() {
             <Route path="/" element={<View />} />
             <Route path="/subscribe" element={<Subscribe />} />
             <Route path="/create" element={<Create />} />
+            <Route path="/success" element={<Success />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>
         </header>
-        <Footer />
       </div>
     </Router>
     

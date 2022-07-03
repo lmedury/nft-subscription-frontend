@@ -1,11 +1,12 @@
 import algosdk from "algosdk";
+import { APP_ID } from "./constants";
 
 class Config {
 
     constructor() {
         if(process.env.REACT_APP_NETWORK === "TestNet") {
             this.NETWORK = "TestNet";
-            this.APP_ID = parseInt(process.env.REACT_APP_TESTNET_APP_ID);
+            this.APP_ID = parseInt(APP_ID);
             this.ESCROW = algosdk.getApplicationAddress(this.APP_ID);
         } else if (process.env.REACT_APP_NETWORK === "MainNet") {
             this.NETWORK = "MainNet";

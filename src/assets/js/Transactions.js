@@ -55,7 +55,7 @@ class Transactions {
                 return false;
             }
             
-            return Transactions.sendToNetwork(txnsTobeSentToNetwork);
+            return Transactions.sendToNetwork(txnsTobeSentToNetwork, transactions[0].txID());
 
         } else if(wallet === 'algosigner') {
             let txns = transactions.map(txn => txn.toByte());
@@ -72,7 +72,7 @@ class Transactions {
                 else sendTxnsToNetwork.push(new Uint8Array(Buffer.from(signedTxns[i].blob, 'base64')));
                
             }
-            return Transactions.sendToNetwork(sendTxnsToNetwork);
+            return Transactions.sendToNetwork(sendTxnsToNetwork, transactions[0].txID());
             
         } else if(wallet === 'myalgo') {
             const myAlgoConnect = new MyAlgoConnect();
@@ -90,14 +90,14 @@ class Transactions {
                 if(ignoreTransactionIndex === parseInt(i)) signedTxns.push(signedTransaction.blob);
                 else signedTxns.push(signTxns[i].blob);
             }
-            return Transactions.sendToNetwork(signedTxns);
+            return Transactions.sendToNetwork(signedTxns, transactions[0].txID());
             
         }
     }
 
-    static async sendToNetwork(txns){
+    static async sendToNetwork(txns, txID){
         try {
-            const status = await AlgoService.algoSendTxn(txns);
+            const status = await AlgoService.algoSendTxn(txns, txID);
             return status;
         
         } catch (err) {
