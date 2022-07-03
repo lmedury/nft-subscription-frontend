@@ -46,7 +46,7 @@ function App() {
         <header className={theme}>
           <Routes>
             <Route path="/" element={<View />} />
-            <Route path="/subscribe" element={<Subscribe />} />
+            <Route path="/subscribe/:id" element={<Subscribe />} />
             <Route path="/create" element={<Create />} />
             <Route path="/success" element={<Success />} />
             <Route path="*" element={<Navigate replace to="/" />} />

@@ -65,7 +65,7 @@ export default function Create(props) {
                     <p className='text-center'>Project / Company Logo</p>
                 </Col>
                 <input 
-                    accept=".png, .jpg, .gif"
+                    accept=".png, .jpg, .gif, .webp"
                     ref={hiddenFileInput} 
                     onChange={(e) => selectAvatar(e)} type="file" style={{display:'none'}} />
                 <Col className="card-description" xs={12} md={{span: 6, offset:3}}>

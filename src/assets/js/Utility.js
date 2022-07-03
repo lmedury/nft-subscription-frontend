@@ -54,11 +54,30 @@ const Utility = {
     },
 
     encodeBytes(value) {
-        return new Uint8Array(Buffer.from(value, 'base64'));
+        return new Uint8Array(Buffer.from(value));
     },
 
     encodeInt(value) {
         return algosdk.encodeUint64(value)
+    },
+
+    decodeKvPairs(kvPairs) {
+        const decodedValues = {};
+        for(let i=0; i<kvPairs.length; i++) {
+            const kvPair = kvPairs[i];
+            const key = Buffer.from(kvPair.key, 'base64').toString();
+            let value = kvPair['value'];
+            if(key === 'receiver_address') {
+                value = algosdk.encodeAddress(Buffer.from(value.bytes, 'base64'));
+            }
+            else if(value.type === 1) {
+                value = Buffer.from(value.bytes, 'base64').toString();
+            } else if(value.type === 2) {
+                value = value.uint;
+            }
+            decodedValues[key] = value;
+        }
+        return decodedValues;
     }
 
 
