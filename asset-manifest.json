@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/nft-subscription-frontend/static/css/main.ffc90589.chunk.css",
+    "main.js": "/nft-subscription-frontend/static/js/main.39c0fdeb.chunk.js",
+    "main.js.map": "/nft-subscription-frontend/static/js/main.39c0fdeb.chunk.js.map",
+    "runtime-main.js": "/nft-subscription-frontend/static/js/runtime-main.1fbcf419.js",
+    "runtime-main.js.map": "/nft-subscription-frontend/static/js/runtime-main.1fbcf419.js.map",
+    "static/css/2.0a9ec390.chunk.css": "/nft-subscription-frontend/static/css/2.0a9ec390.chunk.css",
+    "static/js/2.dc0e5ec7.chunk.js": "/nft-subscription-frontend/static/js/2.dc0e5ec7.chunk.js",
+    "static/js/2.dc0e5ec7.chunk.js.map": "/nft-subscription-frontend/static/js/2.dc0e5ec7.chunk.js.map",
+    "static/js/3.c8793f22.chunk.js": "/nft-subscription-frontend/static/js/3.c8793f22.chunk.js",
+    "static/js/3.c8793f22.chunk.js.map": "/nft-subscription-frontend/static/js/3.c8793f22.chunk.js.map",
+    "index.html": "/nft-subscription-frontend/index.html",
+    "static/css/2.0a9ec390.chunk.css.map": "/nft-subscription-frontend/static/css/2.0a9ec390.chunk.css.map",
+    "static/css/main.ffc90589.chunk.css.map": "/nft-subscription-frontend/static/css/main.ffc90589.chunk.css.map",
+    "static/js/2.dc0e5ec7.chunk.js.LICENSE.txt": "/nft-subscription-frontend/static/js/2.dc0e5ec7.chunk.js.LICENSE.txt",
+    "static/media/Pera.155c9656.jpg": "/nft-subscription-frontend/static/media/Pera.155c9656.jpg",
+    "static/media/UserPlaceholder.png": "/nft-subscription-frontend/static/media/UserPlaceholder.c3f94521.png",
+    "static/media/myalgo.b8868579.png": "/nft-subscription-frontend/static/media/myalgo.b8868579.png",
+    "static/media/white-logo.0aa94b5f.png": "/nft-subscription-frontend/static/media/white-logo.0aa94b5f.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1fbcf419.js",
+    "static/css/2.0a9ec390.chunk.css",
+    "static/js/2.dc0e5ec7.chunk.js",
+    "static/css/main.ffc90589.chunk.css",
+    "static/js/main.39c0fdeb.chunk.js"
+  ]
+}
