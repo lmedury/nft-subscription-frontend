@@ -1,0 +1,406 @@
+$dark-color: #282c34;
+$text-dark-theme: #ffffff;
+$light-color: #ffffff;
+$text-light-theme: #000000;
+$primary-color: #eb9c1c;
+$grey-color: grey;
+$warning: #eb9c1c;
+
+@import '../../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.App {
+  text-align:center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+a {
+  color: $primary-color;
+}
+
+.nav .nav-link {
+  background-color: transparent !important;
+  color: $primary-color !important;
+}
+
+.nav-link.active {
+  border-bottom: solid 4px white !important;
+}
+
+.nav-tabs .nav-link {
+  background-color: transparent !important;
+  color: $primary-color !important;
+}
+
+.nav-tabs .nav-link.active {
+  border-bottom: solid 4px white !important;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover {
+    z-index: 3;
+    color: $text-light-theme;
+    background-color: $light-color;
+    border-color: #ddd;
+}
+
+.pagination > li > a {
+  background-color: $dark-color;
+  color: $text-dark-theme;
+}
+
+@mixin common-theme {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Montserrat';
+  h1 {
+    font-weight: 900;
+  }
+  h2 {
+    font-weight: 800;
+  }
+  h3 {
+    font-weight: 700;
+  }
+  h4 {
+    font-weight: 600;
+  }
+  p {
+    font-weight: 300;
+  }
+}
+
+@mixin card-bg($color) {
+    border: 1px solid $grey-color;
+    background-color: $color;
+    padding: 10%; 
+}
+
+@mixin card-border($color) {
+    border: 1px solid $primary-color;
+    background-color: $color;
+    margin-bottom: 2%;
+}
+
+@mixin no-border($color) {
+    border: none;
+    background-color: $color;
+}
+
+@mixin form-input($bgcolor, $textcolor) {
+  background-color: $bgcolor;
+  color: $textcolor;
+}
+
+@mixin marketplace-item($bgcolor, $textcolor){
+  background-color: $bgcolor;
+  border: 1px solid $textcolor;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px; 
+  margin-top: 5%;
+  &:hover {
+    border: 1px solid $primary-color;
+    cursor: pointer;
+  }
+}
+
+@mixin activity-log($bgcolor, $textcolor){
+  background-color: $bgcolor;
+  border: 1px solid $textcolor;
+  padding: 5px;
+  &:hover {
+    border: 1px solid $primary-color;
+    cursor: pointer;
+  }
+}
+
+@mixin statistic-item($bgcolor, $border) {
+  background-color: $bgcolor;
+  padding: 10px;
+  border: 1px solid $border;
+  margin-top: 2%;
+}
+
+.container {
+  margin-bottom: 2%;
+}
+
+.long-input {
+  height: 60px;
+}
+
+.dark-theme {
+    @include common-theme();
+    background-color: $dark-color;
+    color: $text-dark-theme;
+    h1 h2 h3 h4 h5 h6 p span {
+        color: $text-dark-theme
+    }
+    .card-bg {
+        @include card-bg($dark-color);
+    }
+    .card-border {
+        @include card-border($dark-color);
+    }
+
+    .secondary-border {
+        border: 1px solid $grey-color;
+    }
+
+    .no-border {
+        @include no-border($dark-color);
+    }
+    .form-input {
+        @include form-input($dark-color, $text-dark-theme)
+    }
+    .bg-color {
+      background-color: $dark-color
+    }
+    .statistic {
+      @include statistic-item($dark-color, $text-dark-theme )
+    }
+    .marketplace-item {
+      @include marketplace-item($dark-color, $text-dark-theme )
+    }
+    .activity-log {
+      @include activity-log($dark-color, $text-dark-theme )
+    }
+    
+}
+
+.light-theme {
+    @include common-theme();
+    background-color: $light-color;
+    color: $text-light-theme;
+    h1 h2 h3 h4 h5 h6 p span {
+        color: $text-light-theme
+    }
+    .card-bg {
+        @include card-bg($light-color);
+    }
+    .card-border {
+        @include card-border($light-color);
+    }
+
+    .secondary-border {
+        border: 1px solid $grey-color;
+    }
+
+    .no-border {
+        @include no-border($light-color);
+    }
+    .form-input {
+        @include form-input($light-color, $text-light-theme)
+    }
+    .bg-color {
+      background-color: $light-color
+    }
+    .statistic {
+      @include statistic-item($light-color, $text-light-theme )
+    }
+    .marketplace-item {
+      @include marketplace-item($light-color, $text-light-theme )
+    }
+    .activity-log {
+      @include marketplace-item($light-color, $text-light-theme )
+    }
+}
+
+.dark-navbar {
+  background-color: $dark-color;
+  align-items:flex-start;
+  color:$text-dark-theme;
+  border-bottom: 2px solid $dark-color;
+  justify-content: left;
+  flex-direction: column;
+  display: flex;
+}
+
+.navbar-brand {
+  color: $text-dark-theme;
+}
+
+.navbar-icon {
+  margin-right: 5%;
+}
+
+.section {
+  margin-top: 5%;
+  align-self: flex-start !important;
+  justify-content: flex-start !important;
+  text-align: left;
+  padding-left: 5%;
+  margin-bottom: 5%;
+}
+
+.primary-color{
+  color: $primary-color;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.description {
+  font-size: 16px;
+  text-align: justify;
+}
+
+.no-overflow {
+  overflow-x: hidden;
+}
+
+.dark-card {
+  border: 1px solid $grey-color;
+  background-color: $dark-color;
+  padding: 10%
+}
+
+.text-right {
+  text-align: right;
+}
+
+.footer {
+  //background-color: $dark-color;
+  color: $text-dark-theme;
+  background-color: #000000;
+}
+
+.horizontal-line {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid $text-dark-theme;
+}
+
+.footer-links {
+  color: $text-dark-theme;
+  font-size: 16px;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 5%;
+  &:hover{
+    color: $text-dark-theme
+  }
+}
+
+.card-footer-center {
+  margin-top: 7px;
+}
+
+.title {
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.nav-link-left {
+  text-align: left;
+}
+
+.social-icon {
+  margin-right: 2%;
+  cursor: pointer;
+}
+
+.inline-display {
+  display: inline !important;
+}
+
+.card-description {
+  margin-top: 2%;
+}
+
+.primary-bg {
+  background-color: $primary-color !important;
+  color: white !important;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.fade-in {
+  animation: fadeIn 2s;
+}
+
+.algo-icon {
+  width: 20%;
+  display: inline;
+}
+
+.link-icon {
+  cursor: pointer;
+}
+
+.primary-border{
+  &:hover{
+    border: 1px solid $primary-color;
+  }
+}
+
+.no-decoration {
+  text-decoration: none;
+  color: inherit;
+  &:hover{
+    color: inherit
+  }
+}
+
+.marketplace-domain {
+  font-weight: bold;
+  color: black;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  padding-top: 3px;
+}
+
+.marketplace-table {
+  margin-left: 1%;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.1
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@mixin card-class {
+    background-color: $dark-color !important;
+    color: white;
+    padding: 10px;
+    border: 1px solid white !important;
+}
+
+.card-eligible {
+    @include card-class();
+    border: 1px solid green !important;
+}
+
+.card-ineligible {
+    @include card-class();
+    border: 1px solid red !important;
+}
+
+.card-class {
+    @include card-class();
+}
+
+.card-warning {
+  @include card-class();
+  border: 1px solid orange !important;
+}
+
