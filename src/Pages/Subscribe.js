@@ -15,6 +15,11 @@ import algosdk from "algosdk";
 
 export default function Subscribe(props) {
 
+    /*
+        33IA2RTOTZDD3KNDBOBUUGF43RJ4MJXDL6GZENBFHS2KO6HYN43ZKCBYDA
+        98250104
+        98250602
+    */
     
     const [price, setPrice] = React.useState(0);
     const [priceDuration, setPriceDuration] = React.useState(0);
@@ -105,7 +110,7 @@ export default function Subscribe(props) {
                     </Row>
                 </Card>
                 <Row>
-                    <Col xs={{offset: 2, span: 8}} style={{marginTop:'-5%'}}>
+                    <Col xs="12" md={{span:8, offset:2}} style={{marginTop:'-5%'}}>
                         <Card className="card-bg" style={{borderRadius: 20, padding: 10, width: '100%'}}>
                             <div className="section">
                                 <strong>Information:</strong>
